@@ -1,0 +1,60 @@
+<!-- viewer.html -->
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="pdf-viewer"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        // Initialize the PDF.js viewer
+        var viewerContainer = document.getElementById('pdf-viewer');
+        var pdfFile = '{{ pdf_file_path }}';  // Assuming the PDF file path is passed to the page as a variable
+
+        // Check if PDFJS global object exists
+        if (typeof PDFJS !== 'undefined' && PDFJS.getDocument) {
+            PDFJS.getDocument(pdfFile).promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale });
+
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    viewerContainer.appendChild(canvas);
+
+                    page.render(renderContext);
+                });
+            });
+        } else {
+            console.error('PDF.js is not available.');
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

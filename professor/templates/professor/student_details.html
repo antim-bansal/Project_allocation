@@ -1,0 +1,39 @@
+<!-- student_details.html -->
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+    <h1>{{ professor.name }} - Student Details</h1>
+    <ul>
+        {% if no_allocations %}
+            <p>No allocations to display.</p>
+        {% else %}
+            {% comment %} <a href="?sort_by=cgpa">Sort by CGPA</a>
+            <a href="?sort_by=fcfs">Sort by FCFS</a> {% endcomment %}
+            {% for allocation in allocations %}
+                <li>
+                    <p>Name: {{ allocation.student.name }}</p>
+                    <p>Branch: {{ allocation.student.branch }}</p>
+                    <p>CGPA: {{ allocation.student.cgpa }}</p>
+                    
+                    <!-- Link to open the PDF resume -->
+                    <a href="{{ allocation.student.resume_link }}" target="_blank">View Resume</a>
+
+                    <!-- Links for Accept and Decline actions -->
+                    {% comment %} <a href="{% url 'professor:accept_request' allocation.id %}">Accept</a>
+                    <a href="{% url 'professor:decline_request' allocation.id %}">Decline</a> {% endcomment %}
+                </li>
+            {% endfor %}
+        {% endif %}
+        <a href="{% url 'professor:selected_students' professor_id=professor.id  %}"><button>Selected Students</button></a>
+        {% comment %} <a href="{% url 'professor:professor_profile' professor_id=professor.id %}"><button>Profile</button></a> {% endcomment %}
+        {% comment %} <a href="{% url 'professor:allocate_projects_after_deadline'%}">allocate</a> {% endcomment %}
+    </ul>
+</body>
+</html>
+{% endblock %}

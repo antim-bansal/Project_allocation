@@ -1,0 +1,29 @@
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<head>
+    <title>Professor Profile</title>
+</head>
+<body>
+    <h1>Professor Profile</h1>
+    <p>Welcome, {{ professor.name }}!</p>
+
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if professor.is_hod %}
+        <h3>Set Deadline for Project Allocation</h3>
+        <label for="id_deadline">Deadline:</label>
+        <input type="datetime-local" id="id_deadline" name="deadline" value="{% if previous_deadline %}{{ previous_deadline|date:'Y-m-d\TH:i' }}{% endif %}">
+        <a href="{% url 'professor:allocate_projects_after_deadline'%}">Allocate</a>
+        {% endif %}
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+{% endblock %}

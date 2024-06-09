@@ -1,0 +1,18 @@
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Project</title>
+</head>
+<body>
+    <h2>Add Project</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="action" value="save">Save</button>
+        <button type="submit" name="add_another" value="add_another">Save and Add Another</button>
+    </form>
+</body>
+{% endblock %}

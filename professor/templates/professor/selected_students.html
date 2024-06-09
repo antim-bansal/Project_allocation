@@ -1,0 +1,29 @@
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Students for {{ professor.name }}</title>
+</head>
+<body>
+    <h1>Selected Students for {{ professor.name }}</h1>
+    <ul>
+        {% for selected_student in selected_students %}
+        <li>
+            <p>Name: {{ selected_student.student.name }}</p>
+            <p>Branch: {{ selected_student.student.branch }}</p>
+            <p>CGPA: {{ selected_student.student.cgpa }}</p>
+            <p>Project: {{ selected_student.project.title }}</p>
+
+            <a href="{{ selected_student.student.resume_link }}" target="_blank">View Resume</a>
+
+
+         
+        </li>
+        {% endfor %}
+    </ul>
+
+    
+</body>
+{% endblock %}

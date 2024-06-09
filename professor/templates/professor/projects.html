@@ -1,0 +1,20 @@
+{% extends "professor/prof_base.html" %}
+
+{% block content %}
+<head>
+    <title>My Projects</title>
+</head>
+<body>
+    <h1>My Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <a href="{% url 'professor:project_details' project_id=project.id %}">{{ project.title }}</a>
+            </li>
+        {% endfor %}
+
+        
+    </ul>
+    <a href="{% url 'professor:add_project' professor_id=professor.id  %}"><button>Add Project</button></a>
+</body>
+{% endblock%}
