@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choose Role</title>
+</head>
+<body>
+    <h1>Choose Your Role</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="role">Select your role:</label>
+        <select name="role" id="role">
+            <option value="{{ user.ROLE_STUDENT }}">Student</option>
+            <option value="{{ user.ROLE_PROFESSOR }}">Professor</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

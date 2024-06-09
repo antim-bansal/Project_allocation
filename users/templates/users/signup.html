@@ -1,0 +1,19 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+    <h1>Signup</h1>
+    {% comment %} <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form> {% endcomment %}
+
+    <p> sign up using:</p>
+    <a href="{% provider_login_url 'google' %}">Sign up with Google</a>
+</body>
+</html>
