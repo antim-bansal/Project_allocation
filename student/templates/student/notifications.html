@@ -1,0 +1,40 @@
+<!-- notifications.html -->
+{% extends "student/student_base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <style>
+        /* Add your CSS styles for the notifications page here */
+        .notification {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+        }
+        .unread {
+            font-weight: bold;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notifications</h1>
+    {% if notifications %}
+        {% for notification in notifications %}
+            <div class="notification{% if not notification.seen %} unread{% endif %}">
+                <p>{{ notification.message }}</p>
+                <p>Created at: {{ notification.created_at }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No notifications</p>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

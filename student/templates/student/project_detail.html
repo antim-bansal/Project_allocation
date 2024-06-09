@@ -1,0 +1,50 @@
+<!-- project_detail.html -->
+{% extends "student/student_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <h1>{{ project.title }}</h1>
+    <p>Description: {{ project.description }}</p>
+    <p>Max Students: {{ project.max_students }}</p>
+
+
+    {% if success_message %}
+    <p>{{ success_message }}</p>
+    {% else %}
+
+    {% if allocation %}
+    <p>Your request has already been sent.</p>
+
+{% else %}
+
+{% now "Y-m-d" as current_date %}
+{% if deadline %}
+    {% if deadline|date:"Y-m-d" < current_date %}
+        <p>Deadline has passed. You can no longer asend request.</p>
+    {% else %}
+    <form method="post" action="{% url 'student:send_request' project.id %}"> 
+        {% csrf_token %}
+        {{ send_request_form.as_p }}  
+        <label for="priority">Priority:</label>
+            <input type="number" id="priority" name="priority" min="1"  required>
+        <button type="submit">Send Request to Work Under {{ professor.name }}</button>
+    </form>
+    {% endif %}
+{% else %}
+<form method="post" action="{% url 'student:send_request' project.id %}"> 
+    {% csrf_token %}
+    {{ send_request_form.as_p }}  
+    <label for="priority">Priority:</label>
+        <input type="number" id="priority" name="priority" min="1"  required>
+    <button type="submit">Send Request to Work Under {{ professor.name }}</button>
+</form>
+{% endif %}
+{% endif %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

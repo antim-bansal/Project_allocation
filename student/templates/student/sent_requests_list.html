@@ -1,0 +1,19 @@
+<!-- sent_requests_list.html -->
+{% extends "student/student_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add necessary meta tags and title -->
+</head>
+<body>
+    <h1>Sent Requests</h1>
+    <ul>
+        {% for request in sent_requests %}
+            <li>Project: {{ request.project.title }} - Priority: {{ request.priority }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

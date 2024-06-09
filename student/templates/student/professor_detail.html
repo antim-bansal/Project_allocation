@@ -1,0 +1,27 @@
+<!-- professor_detail.html -->
+{% extends "student/student_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Detail</title>
+</head>
+<body>
+    <h1>{{ professor.name }}</h1>
+    <p>Department: {{ professor.department }}</p>
+    <p>Expertise: {{ professor.expertise }}</p>
+    <h2>Projects</h2>
+    <ul>
+        {% for project in projects %}
+            <li><a href="{% url 'student:project_detail' project.id %}">{{ project.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+   
+</body>
+</html>
+{% endblock %}

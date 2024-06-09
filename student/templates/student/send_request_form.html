@@ -1,0 +1,36 @@
+{% comment %} {% extends "student/student_base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Request to Professor</title>
+</head>
+<body>
+    <h1>Send Request to Work Under {{ professor.name }}</h1>
+    {% now "Y-m-d" as current_date %}
+    {% if deadline %}
+        {% if deadline|date:"Y-m-d" < current_date %}
+            <p>Deadline has passed. You can no longer asend request.</p>
+        {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Render the form fields -->
+            <button type="submit">Send Request</button>
+    
+        </form>
+        {% endif %}
+    {% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        <button type="submit">Send Request</button>
+
+    </form>
+    {% endif %}
+</body>
+</html>
+{% endblock %} {% endcomment %}

@@ -1,0 +1,31 @@
+{% extends "student/student_base.html" %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+</head>
+<body>
+    <h2>Add Student</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="branch">Branch:</label><br>
+        <input type="text" id="branch" name="branch"><br>
+        <label for="cgpa">CGPA:</label><br>
+        <input type="text" id="cgpa" name="cgpa"><br>
+        <label for="resume_link">Resume Link:</label><br>
+        <input type="text" id="resume_link" name="resume_link"><br> <!-- Input for resume link -->
+        <label for="text_field">Area of interests:</label><br>
+        <input type="text" id="text_field" name="text_field"><br>
+        <button type="submit">Submit</button>
+        {% if errors %}
+            <div>{{ errors }}</div>
+        {% endif %}
+    </form>
+</body>
+</html>
+
+{% endblock %}
